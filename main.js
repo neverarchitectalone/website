@@ -1,4 +1,5 @@
 import './style.css'
+import './typography-enhancements.css'
 
 // ===================================
 // Theme Toggle Functionality
@@ -138,33 +139,34 @@ window.addEventListener('scroll', () => {
 });
 
 // ===================================
-// Typewriter Effect for Hero Title
+// Typewriter Effect for Hero Title - DISABLED
 // ===================================
-const heroHeadline = document.querySelector('.hero-headline');
-if (heroHeadline) {
-  const text = heroHeadline.textContent;
-  heroHeadline.textContent = '';
-  heroHeadline.style.opacity = '1';
-  
-  let index = 0;
-  const typeWriter = () => {
-    if (index < text.length) {
-      if (text[index] === '<') {
-        // Handle <br> tag
-        const brIndex = text.indexOf('>', index);
-        heroHeadline.innerHTML += text.substring(index, brIndex + 1);
-        index = brIndex + 1;
-      } else {
-        heroHeadline.textContent += text[index];
-        index++;
-      }
-      setTimeout(typeWriter, 50);
-    }
-  };
-  
-  // Start typewriter effect after a short delay
-  setTimeout(typeWriter, 500);
-}
+// Typewriter effect disabled to prevent layout shift
+// const heroHeadline = document.querySelector('.hero-headline');
+// if (heroHeadline) {
+//   const text = heroHeadline.textContent;
+//   heroHeadline.textContent = '';
+//   heroHeadline.style.opacity = '1';
+//   
+//   let index = 0;
+//   const typeWriter = () => {
+//     if (index < text.length) {
+//       if (text[index] === '<') {
+//         // Handle <br> tag
+//         const brIndex = text.indexOf('>', index);
+//         heroHeadline.innerHTML += text.substring(index, brIndex + 1);
+//         index = brIndex + 1;
+//       } else {
+//         heroHeadline.textContent += text[index];
+//         index++;
+//       }
+//       setTimeout(typeWriter, 50);
+//     }
+//   };
+//   
+//   // Start typewriter effect after a short delay
+//   setTimeout(typeWriter, 500);
+// }
 
 // ===================================
 // Parallax Effect for Hero Section

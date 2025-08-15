@@ -1,0 +1,194 @@
+/* ===================================
+   Typography Visual Enhancements
+   =================================== */
+
+/* Subtle text shadows for depth in dark mode */
+[data-theme="dark"] .hero-headline,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2 {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Simple gradient for hero headline - no animation */
+.hero-headline {
+  background: linear-gradient(
+    90deg,
+    var(--color-text) 0%,
+    var(--color-accent) 100%
+  );
+}
+
+/* Fade-in animation for headings */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-description {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-actions {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* Better selection colors */
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Enhanced focus states */
+.btn:focus-visible,
+.nav-menu a:focus-visible,
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Decorative elements for section titles */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-accent);
+  margin: var(--space-md) auto 0;
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+/* Enhanced principle numbers */
+.principle-number {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.15;
+  transition: opacity var(--transition-base);
+}
+
+.principle-card:hover .principle-number {
+  opacity: 0.25;
+}
+
+/* Better code typography */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 450;
+  padding: 0.2em 0.4em;
+  background: var(--color-bg-alt);
+  border-radius: 4px;
+  color: var(--color-accent);
+}
+
+/* Improved list styling */
+.feature-list li {
+  font-weight: 450;
+  font-variation-settings: 'wght' 450;
+  line-height: var(--lh-relaxed);
+}
+
+.feature-list li strong {
+  font-weight: 700;
+  font-variation-settings: 'wght' 700;
+}
+
+/* Enhanced nav logo hover */
+.nav-logo {
+  position: relative;
+  transition: all var(--transition-base);
+}
+
+.nav-logo::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
+}
+
+.nav-logo:hover::before {
+  width: 100%;
+}
+
+/* Smooth font weight transitions */
+.btn,
+.nav-menu a,
+.challenge-item h3,
+.principle-card h3 {
+  transition: font-variation-settings var(--transition-fast),
+              color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.btn:hover {
+  font-variation-settings: 'wght' 700;
+}
+
+.nav-menu a:hover {
+  font-variation-settings: 'wght' 600;
+}
+
+/* Enhanced card typography on hover */
+.challenge-item:hover h3,
+.principle-card:hover h3 {
+  font-variation-settings: 'wght' 800;
+  transform: translateX(2px);
+}
+
+/* Better readability for body text in cards */
+.challenge-item p,
+.principle-card p,
+.step-content p {
+  font-optical-sizing: auto;
+}
+
+/* Responsive typography fine-tuning */
+@media (max-width: 768px) {
+  .hero-headline {
+    letter-spacing: -0.035em;
+  }
+  
+  .section-title {
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Dark mode text enhancements */
+[data-theme="dark"] body {
+  font-variation-settings: 'wght' 410;
+}
+
+[data-theme="dark"] p {
+  font-variation-settings: 'wght' 420;
+}
+
+/* Light mode text enhancements */
+[data-theme="light"] body {
+  font-variation-settings: 'wght' 390;
+}
+
+[data-theme="light"] p {
+  font-variation-settings: 'wght' 400;
+}
