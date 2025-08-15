@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2be490be-6ecb-4831-b574-ffd48c3aa910/deploy-status)](https://app.netlify.com/projects/neverarchitectalone/deploys)
 # Never Architect Alone Framework - Website
 
 The official promotional website for the Never Architect Alone (AAA) Framework - a systematic approach to AI-enhanced cloud architecture design.
