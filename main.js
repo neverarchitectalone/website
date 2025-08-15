@@ -1,6 +1,36 @@
 import './style.css'
 
 // ===================================
+// Theme Toggle Functionality
+// ===================================
+const initTheme = () => {
+  const themeToggle = document.querySelector('.theme-toggle');
+  const html = document.documentElement;
+  
+  // Check for saved theme preference or default to dark theme
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  
+  // Apply the theme
+  html.setAttribute('data-theme', savedTheme);
+  
+  // Add theme toggle functionality
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme') || 'dark';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-theme', newTheme);
+      
+      // Save preference to localStorage
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+};
+
+// Initialize theme immediately to prevent flash
+initTheme();
+
+// ===================================
 // Mobile Navigation Toggle
 // ===================================
 const navToggle = document.querySelector('.nav-toggle');

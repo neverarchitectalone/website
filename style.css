@@ -1,8 +1,27 @@
 /* ===================================
    CSS Custom Properties (Design Tokens)
    =================================== */
-:root {
-  /* Colors */
+/* Default to dark theme */
+:root, [data-theme="dark"] {
+  /* Dark Theme Colors (Default) */
+  --color-primary: #F8FAFC;
+  --color-primary-light: #E2E8F0;
+  --color-accent: #0EA5E9;
+  --color-accent-dark: #0284C7;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #78350F;
+  --color-success: #10B981;
+  --color-text: #F8FAFC;
+  --color-text-light: #CBD5E1;
+  --color-text-inverse: #1E293B;
+  --color-bg: #0F172A;
+  --color-bg-alt: #1E293B;
+  --color-border: #334155;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  /* Light Theme Colors */
   --color-primary: #0F172A;
   --color-primary-light: #1E293B;
   --color-accent: #0EA5E9;
@@ -16,6 +35,9 @@
   --color-bg: #FFFFFF;
   --color-bg-alt: #F8FAFC;
   --color-border: #E2E8F0;
+}
+
+:root {
   
   /* Typography Scale */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -87,6 +109,7 @@ body {
   background-color: var(--color-bg);
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 /* ===================================
@@ -170,11 +193,15 @@ strong {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
   z-index: 1000;
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+[data-theme="light"] .nav {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .nav-container {
@@ -230,7 +257,7 @@ strong {
 }
 
 .nav-github {
-  background: var(--color-primary);
+  background: var(--color-accent);
   color: var(--color-text-inverse) !important;
   padding: var(--space-xs) var(--space-md);
   border-radius: 6px;
@@ -238,6 +265,14 @@ strong {
 }
 
 .nav-github:hover {
+  background: var(--color-accent-dark);
+}
+
+[data-theme="light"] .nav-github {
+  background: var(--color-primary);
+}
+
+[data-theme="light"] .nav-github:hover {
   background: var(--color-primary-light);
 }
 
@@ -259,7 +294,7 @@ strong {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--color-primary);
+  background: var(--color-text);
   transition: all var(--transition-fast);
 }
 
@@ -298,6 +333,13 @@ strong {
   font-size: var(--fs-5xl);
   font-weight: 900;
   line-height: 1;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .hero-headline {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -553,9 +595,14 @@ strong {
    CTA Section
    =================================== */
 .section-cta {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
   color: var(--color-text-inverse);
   text-align: center;
+}
+
+[data-theme="light"] .section-cta {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: var(--color-text-inverse);
 }
 
 .cta-content {
@@ -582,11 +629,22 @@ strong {
 }
 
 .cta-actions .btn {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.cta-actions .btn:hover {
+  background: var(--color-bg-alt);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+[data-theme="light"] .cta-actions .btn {
   background: white;
   color: var(--color-primary);
 }
 
-.cta-actions .btn:hover {
+[data-theme="light"] .cta-actions .btn:hover {
   background: var(--color-bg-alt);
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl);
@@ -743,4 +801,51 @@ strong {
   .safety-warning {
     padding: var(--space-lg);
   }
+}
+
+/* ===================================
+   Theme Toggle Button
+   =================================== */
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  padding: var(--space-xs);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: all var(--transition-fast);
+  margin-left: var(--space-sm);
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-alt);
+  border-color: var(--color-accent);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-text);
+  transition: transform var(--transition-fast);
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(20deg);
+}
+
+.theme-icon-light,
+.theme-icon-dark {
+  display: none;
+}
+
+[data-theme="light"] .theme-icon-light {
+  display: block;
+}
+
+[data-theme="dark"] .theme-icon-dark {
+  display: block;
 }

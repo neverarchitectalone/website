@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Theme Debug</title>
+</head>
+<body>
+  <h1>Theme Debug Test</h1>
+  <button id="test-theme">Test Theme</button>
+  <pre id="output"></pre>
+
+  <script>
+    const output = document.getElementById('output');
+    
+    function log(msg) {
+      output.textContent += msg + '\n';
+    }
+    
+    document.getElementById('test-theme').addEventListener('click', () => {
+      // Open the main site in a new window
+      const win = window.open('http://localhost:5173/', '_blank', 'width=1200,height=800');
+      
+      setTimeout(() => {
+        if (win) {
+          log('Window opened, checking theme...');
+          
+          // Check initial theme
+          const initialTheme = win.document.documentElement.getAttribute('data-theme');
+          log(`Initial theme: ${initialTheme}`);
+          
+          // Check body background
+          const bodyBg = win.getComputedStyle(win.document.body).backgroundColor;
+          log(`Body background: ${bodyBg}`);
+          
+          // Check if toggle button exists
+          const toggle = win.document.querySelector('.theme-toggle');
+          log(`Toggle button exists: ${!!toggle}`);
+          
+          if (toggle) {
+            // Check icons
+            const darkIcon = win.document.querySelector('.theme-icon-dark');
+            const lightIcon = win.document.querySelector('.theme-icon-light');
+            
+            const darkIconDisplay = darkIcon ? win.getComputedStyle(darkIcon).display : 'not found';
+            const lightIconDisplay = lightIcon ? win.getComputedStyle(lightIcon).display : 'not found';
+            
+            log(`Dark icon display: ${darkIconDisplay}`);
+            log(`Light icon display: ${lightIconDisplay}`);
+            
+            // Click toggle
+            log('\nClicking toggle...');
+            toggle.click();
+            
+            setTimeout(() => {
+              const newTheme = win.document.documentElement.getAttribute('data-theme');
+              const newBg = win.getComputedStyle(win.document.body).backgroundColor;
+              
+              log(`Theme after click: ${newTheme}`);
+              log(`Background after click: ${newBg}`);
+              
+              const localStorage = win.localStorage.getItem('theme');
+              log(`LocalStorage theme: ${localStorage}`);
+              
+              win.close();
+            }, 500);
+          }
+        }
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

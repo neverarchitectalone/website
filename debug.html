@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Theme Debug</title>
+</head>
+<body>
+  <h1>Theme Debug</h1>
+  <button onclick="runTest()">Run Test</button>
+  <pre id="output"></pre>
+  
+  <script>
+    function runTest() {
+      const output = document.getElementById('output');
+      output.textContent = '';
+      
+      // Test via fetch
+      fetch('http://localhost:5173/')
+        .then(res => res.text())
+        .then(html => {
+          output.textContent += 'HTML Length: ' + html.length + '\n';
+          output.textContent += 'Has theme-toggle: ' + html.includes('theme-toggle') + '\n';
+          
+          // Test CSS
+          fetch('http://localhost:5173/style.css')
+            .then(res => res.text())
+            .then(css => {
+              output.textContent += 'CSS Length: ' + css.length + '\n';
+              output.textContent += 'Has dark theme: ' + css.includes('data-theme="dark"') + '\n';
+              output.textContent += 'Has light theme: ' + css.includes('data-theme="light"') + '\n';
+              
+              // Test JS
+              fetch('http://localhost:5173/main.js')
+                .then(res => res.text())
+                .then(js => {
+                  output.textContent += 'JS Length: ' + js.length + '\n';
+                  output.textContent += 'Has initTheme: ' + js.includes('initTheme') + '\n';
+                  output.textContent += 'Has setAttribute: ' + js.includes('setAttribute') + '\n';
+                  
+                  output.textContent += '\n\nOpen console and paste this to test:\n';
+                  output.textContent += `
+// Check theme
+console.log('Theme:', document.documentElement.getAttribute('data-theme'));
+console.log('Background:', getComputedStyle(document.body).backgroundColor);
+
+// Toggle theme
+document.querySelector('.theme-toggle').click();
+setTimeout(() => {
+  console.log('New theme:', document.documentElement.getAttribute('data-theme'));
+  console.log('New background:', getComputedStyle(document.body).backgroundColor);
+}, 100);
+`;
+                });
+            });
+        })
+        .catch(err => {
+          output.textContent = 'Error: ' + err;
+        });
+    }
+  </script>
+</body>
+</html>
